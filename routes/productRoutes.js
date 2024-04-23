@@ -1,12 +1,45 @@
-// const express = require('express')
-// const {addProduct} = require('../controllers/productsController')
-// const productRouter = express.Router();
+const express = require('express')
+const Product = require('../models/productsModel')
+const productsRouter = express.Router();
 
 
 
 
 
 
+// get all products 
 
-// productRouter.post('/addProduct',addProduct)
-// module.exports = productRouter
+productsRouter.get('/', async (req, res) => {
+  const productList = await Product.find()
+
+  if(!productList) {
+    res.status(500).json({success: false})
+  }
+  res.send(productList)
+})
+
+
+
+// creating a new product 
+
+productsRouter.post('/', (req, res) => {
+  const product = new Product({
+    name: req.body.name,
+    image: req.body.image,
+    countInStock: req.body.countInStock
+  })
+
+  product.save().then((createdProduct => {
+    res.status(201).json(createdProduct)
+  })).catch((err) => {
+    res.status(500).json({
+      error: err,
+      success: false
+    })
+  })
+})
+
+
+
+
+module.exports = productsRouter
