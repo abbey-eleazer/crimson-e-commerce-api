@@ -1,0 +1,21 @@
+{
+  "name": "crimson_e-commerce_shop",
+  "version": "1.0.0",
+  "description": "an e-commerce shop for crimson inc.",
+  "main": "node server.js",
+  "scripts": {
+    "serve": "nodemon server.js"
+  },
+  "author": "eleazer abbey",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "cookies": "^0.9.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongodb": "^6.5.0",
+    "mongoose": "^8.3.2",
+    "morgan": "^1.10.0"
+  }
+}
