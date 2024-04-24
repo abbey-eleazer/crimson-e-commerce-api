@@ -1,53 +1,41 @@
 const express = require('express')
+const app = express();
+const morgan = require('morgan')
+const cors = require('cors')
 const colors = require('colors')
 require("dotenv").config()
-const morgan = require('morgan')
-const mongoose  = require('mongoose')
 const db_connection = require('./config/db')
-// const router = require('router')
 
-const app = express();
+
+// ****  Models  ****
+const Product = require('./models/productsModel')
+const User = require('./models/userModel')
+const category = require('./models/categoryModel')
+const order = require('./models/orderModel')
+
+// ****  Routes  ****
+const productsRouter = require('./routes/productRoutes')
+const usersRouter = require('./routes/userRoute')
+const categoriesRouter = require('./routes/categoryRoute')
+const ordersRouter = require('./routes/orderRoute')
+
 
 const PORT = process.env.PORT || 3000
-db_connection()
+db_connection()     //  DB connection
 
-// middlewares 
+// ****  Middlewares  ****
 app.use(express.json())
 app.use(express.json({ extended: true }))
 app.use(morgan('dev'))
+app.use(cors())
+app.options('*',cors())
 
 
-
-// product Schema and model 
-
-const productSchema = mongoose.Schema({
-  name: String,
-  image: String,
-  countInStock: Number
-})
-
-const Product = mongoose.model('Product', productSchema)
-
-
-// creating a new product 
-
-app.post('/api/v1/products', (req, res) => {
-  const product = new Product({
-    name: req.body.name,
-    image: req.body.image,
-    countInStock: req.body.countInStock
-  })
-
-  product.save().then((createdProduct => {
-    res.status(201).json(createdProduct)
-  })).catch((err) => {
-    res.status(500).json({
-      error: err,
-      success: false
-    })
-  })
-})
-
+ // ****  Route URL ****
+app.use('/api/v1/products', productsRouter)
+app.use('/api/v1/categories', categoriesRouter)
+app.use('/api/v1/users', usersRouter)
+app.use('/api/v1/orders', ordersRouter)
 
 
 

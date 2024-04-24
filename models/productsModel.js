@@ -4,12 +4,75 @@ const mongoose = require('mongoose')
 
 const productSchema = mongoose.Schema({
   
-  name: String,
-  image: String,
+  name:{ 
+    type: String,
+    required: true
+  },
+
+  description: {
+    type: String,
+    required: true,
+  },
+
+  detailedDescription: {
+    type: String,
+    defualt: '',
+  },
+
+  image: {
+    type: String,
+    defualt: '',
+  },
+
+  images:[ 
+    {
+    type: String,
+    defualt: '',
+   }
+  ],
+
+  brand: {
+    type: String,
+    defualt: '',
+  },
+
+  price: {
+    type: Number,
+    defualt: 0,
+  },
+
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category',
+    required: true,
+  },
+
   countInStock: {
     type: Number,
-    required: true
-  }
+    required: true,
+    min: 0,
+    max: 255
+  },
+
+  rating: {
+    type: Number,
+    defualt: 0,
+  },
+
+  numReviews: {
+    type: Number,
+    defualt: 0,
+  },
+
+  dateCreated: {
+    type: Date,
+    defualt: Date.now,
+  },
+
+  isFeatured: {
+    type: Boolean,
+    defualt: false,
+  },
 })
 
 exports.Product = mongoose.model('Product', productSchema)

@@ -1,5 +1,5 @@
 const express = require('express')
-const Product = require('../models/productsModel')
+const {Product} = require('../models/productsModel')
 const productsRouter = express.Router();
 
 
@@ -22,21 +22,29 @@ productsRouter.get('/', async (req, res) => {
 
 // creating a new product 
 
-productsRouter.post('/', (req, res) => {
+productsRouter.post('/',async (req, res) => {
+  
   const product = new Product({
     name: req.body.name,
+    description: req.body.description,
+    detailedDescription: req.body.detailedDescription,
     image: req.body.image,
-    countInStock: req.body.countInStock
+    brand: req.body.brand,
+    price: req.body.price,
+    category: req.body.category,
+    countInStock: req.body.countInStock,
+    rating: req.body.rating,
+    numReviews: req.body.numReviews,
+    isFeatured: req.body.isFeatured,
+    images: req.body.images,
+   
   })
 
-  product.save().then((createdProduct => {
-    res.status(201).json(createdProduct)
-  })).catch((err) => {
-    res.status(500).json({
-      error: err,
-      success: false
-    })
-  })
+  product = await product.save()
+
+  if(!product) {
+    return res.status(500).send('The product can not be created')
+  }
 })
 
 
