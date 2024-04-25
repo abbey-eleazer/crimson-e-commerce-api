@@ -8,5 +8,5 @@ Sort products
 Search for products
 
 Admin 
-adds products, categorize the products , suspend or ban user accounts. Mange user orders.
+adds products, categorize the products , suspend or ban user accounts. Manage user orders.
 Products specifications and categories ( you decide the product details and everything).

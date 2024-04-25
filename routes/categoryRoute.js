@@ -24,6 +24,25 @@ categoryRouter.get('/:id', async (req, res) => {
 })
 
 
+
+//  *** create/add category
+categoryRouter.post('/', async (req, res) => {
+  let category = new Category({
+    name: req.body.name,
+    icon: req.body.icon,
+    color: req.body.color,
+    image: req.body.image,
+  })
+  
+  category = await category.save()
+  
+  if(!category) {
+    return  res.status(404).send('category can not be found')
+  }
+  res.status(200).send(category)
+})
+
+
 // ***  update category 
 categoryRouter.put('/:id', async (req, res) => {
    const category = await Category.findByIdAndUpdate(
@@ -41,25 +60,6 @@ categoryRouter.put('/:id', async (req, res) => {
     return res.status(404).json({success: false, message: 'category not found'})
   }
 })
-
-
-//  *** create/add category
-categoryRouter.post('/', async (req, res) => {
-  let category = new Category({
-    name: req.body.name,
-    icon: req.body.icon,
-    color: req.body.color,
-    image: req.body.image,
-  })
-
-  category = await category.save()
-
-  if(!category) {
-   return  res.status(404).send('category can not be found')
-  }
-  res.status(200).send(category)
-})
-
 
 
 //  *** delete category
