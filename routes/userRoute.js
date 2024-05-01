@@ -77,4 +77,31 @@ const JWT_SECRET = process.env.JWT_SECRET_KEY
   // return res.status(200).send(user )
 })
 
+//  *** delete user
+
+usersRouter.delete('/:id', (req, res) => {
+  User.findByIdAndDelete(req.params.id)
+  .then(user => {
+    if(user) {
+      return res.status(200).json({success: true, message: 'user deleted successfuly'})
+    } else {
+      return res.status(404).json({success: false, message: 'user not found'})
+    }
+  })
+  .catch(error => {
+    return res.status(400).json({error: error})
+  })
+})
+
+
+// user count 
+usersRouter.get('/get/count', async (req, res) => {
+  const userCount = await User.countDocuments()
+
+  if(!userCount) {
+    res.status(500).json({success: false})
+  }
+  res.send({userCount : userCount})
+})
+
 module.exports = usersRouter
