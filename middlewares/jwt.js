@@ -1,4 +1,5 @@
 const { expressjwt: jwt } = require('express-jwt')
+const {User} = require('../models/userModel')
 
 function authJwt() {
 
@@ -18,12 +19,14 @@ const JWT_SECRET = process.env.JWT_SECRET_KEY
   })
 }
 
-async function isRevoked (req, payload, done) {
-
-  if(!payload.isAdmin) {
-    done( null, true )
+async function isRevoked(req, payload) {
+  console.log(payload);
+  if (payload.isAdmin == false) {
+    console.log('Not Admin');
+    return true;
   }
-  done()
+  console.log('Admin');
+  return false;
 }
 
 
