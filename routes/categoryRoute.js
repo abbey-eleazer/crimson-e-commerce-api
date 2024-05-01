@@ -76,4 +76,6 @@ categoryRouter.delete('/:id', (req, res) => {
     return res.status(400).json({error: error})
   })
 })
+
+
 module.exports = categoryRouter

@@ -46,9 +46,7 @@ productsRouter.get('/:id', async (req, res) => {
 
 productsRouter.post('/',async (req, res) => {
 
-  if(!mongoose.isValidObjectId(req.params.id)) {
-    return res.status(400).send('Invalid product id')
-  }
+ 
   //  validate category
 
   const category = await Category.findById(req.body.category)
@@ -87,7 +85,10 @@ productsRouter.post('/',async (req, res) => {
 
 // ***  update product 
 productsRouter.put('/:id', async (req, res) => {
-
+  
+  if(!mongoose.isValidObjectId(req.params.id)) {
+    return res.status(400).send('Invalid product id')
+  }
   //  validate category
   
   const category = await Category.findById(req.body.category)

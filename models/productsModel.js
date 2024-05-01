@@ -64,14 +64,14 @@ const productSchema = mongoose.Schema({
     defualt: 0,
   },
 
-  dateCreated: {
-    type: Date,
-    defualt: Date.now,
-  },
-
   isFeatured: {
     type: Boolean,
     defualt: false,
+  },
+
+  dateCreated: {
+    type: Date,
+    defualt: Date.now,
   },
 })
 
