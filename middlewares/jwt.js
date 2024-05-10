@@ -1,5 +1,4 @@
 const { expressjwt: jwt } = require('express-jwt')
-const {User} = require('../models/userModel')
 
 function authJwt() {
 
@@ -11,6 +10,7 @@ const JWT_SECRET = process.env.JWT_SECRET_KEY
     isRevoked: isRevoked
   }).unless({
     path: [
+      {url: /\/public\/ upload{.*}/ , methods: ['GET', 'OPTIONS']},
       {url: /\/api\/v1\/products{.*}/ , methods: ['GET', 'OPTIONS']},
       {url: /\/api\/v1\/categories{.*}/ , methods: ['GET', 'OPTIONS']},
       '/api/v1/users/login',

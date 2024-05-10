@@ -3,6 +3,7 @@ const express = require('express')
 const categoryRouter = express.Router()
 
 
+
 categoryRouter.get('/', async (req, res) => {
   const categoryList = await Category.find()
 

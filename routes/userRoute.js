@@ -3,6 +3,7 @@ const { User } = require('../models/userModel')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const usersRouter = express.Router()
+const joi = require('joi')
 
 // *** get all users
 usersRouter.get('/', async (req, res) => {
@@ -42,6 +43,15 @@ usersRouter.post('/signup', async (req, res) => {
   })
   
   user = await user.save()
+
+  const validate = (user) => {
+    const schema = Joi.object({
+        name: Joi.string().required(),
+        email: Joi.string().email().required(),
+        password: Joi.string().required(),
+    });
+    return schema.validate(user);
+};
   
   if(!user) {
     return  res.status(404).send('user can not be found')
@@ -50,6 +60,7 @@ usersRouter.post('/signup', async (req, res) => {
   
     res.status(200).send(user)
 })
+
 
 
 // *** login user
