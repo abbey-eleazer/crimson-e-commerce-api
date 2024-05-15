@@ -4,7 +4,8 @@
   "description": "an e-commerce shop for crimson inc.",
   "main": "node server.js",
   "scripts": {
-    "serve": "node server.js"
+    "serve": "nodemon server.js",
+    "start": "node server.js"
   },
   "author": "eleazer abbey",
   "license": "ISC",
