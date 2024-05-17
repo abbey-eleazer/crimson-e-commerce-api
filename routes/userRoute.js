@@ -44,14 +44,14 @@ usersRouter.post('/signup', async (req, res) => {
   
   user = await user.save()
 
-  const validate = (user) => {
-    const schema = Joi.object({
-        name: Joi.string().required(),
-        email: Joi.string().email().required(),
-        password: Joi.string().required(),
-    });
-    return schema.validate(user);
-};
+//   const validate = (user) => {
+//     const schema = Joi.object({
+//         name: Joi.string().required(),
+//         email: Joi.string().email().required(),
+//         password: Joi.string().required(),
+//     });
+//     return schema.validate(user);
+// };
   
   if(!user) {
     return  res.status(404).send('user can not be found')
@@ -78,7 +78,7 @@ const JWT_SECRET = process.env.JWT_SECRET_KEY
 
     // login token
     const token = jwt.sign(
-      { userId: user.id, isAdmin: user.isAdmin }, JWT_SECRET, { expiresIn: '1d' }
+      { userId: user.id, isAdmin: user.isAdmin }, JWT_SECRET, { expiresIn: '3d' }
     )
     res.status(200).send({ user: user.email, token: token })
 
